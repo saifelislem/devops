@@ -13,6 +13,12 @@ pipeline {
             }
         }
 
+        stage('Prepare') {
+            steps {
+                sh 'chmod +x mvnw' // <-- cette ligne rend mvnw exécutable
+            }
+        }
+
         stage('Build Spring Boot Jar') {
             steps {
                 sh './mvnw clean package -DskipTests'
