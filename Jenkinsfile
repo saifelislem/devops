@@ -1,5 +1,10 @@
 pipeline {
     agent any
+     environment {
+            DOCKER_IMAGE = "saifelislem/student-management:1.0"
+            DOCKER_USER = "saifelislem"
+            DOCKER_PASS = "saif.2003"
+        }
 
     tools {
         maven 'M2'
@@ -63,11 +68,11 @@ pipeline {
 
     post {
         success {
-            echo '✅ Build et déploiement Docker réussis !'
+            echo ' Build et déploiement Docker réussis !'
             archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
         }
         failure {
-            echo '❌ Pipeline échoué.'
+            echo 'Pipeline échoué.'
         }
         always {
             echo 'Pipeline finished.'
