@@ -1,10 +1,5 @@
 pipeline {
     agent any
-     environment {
-            DOCKER_IMAGE = "saifelislem/student-management:1.0"
-            DOCKER_USER = "saifelislem"
-            DOCKER_PASS = "saif.2003"
-        }
 
     tools {
         maven 'M2'
@@ -13,10 +8,10 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = "saifelislem/student-management:1.0"
+        // Si tu avais d'autres variables comme DOCKER_USER / DOCKER_PASS, on les gère via credentials, pas ici
     }
 
     stages {
-
         stage('Checkout') {
             steps {
                 echo 'Cloning repository...'
@@ -68,14 +63,14 @@ pipeline {
 
     post {
         success {
-            echo ' Build et déploiement Docker réussis !'
+            echo '✅ Build et Docker push réussis !'
             archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
         }
         failure {
-            echo 'Pipeline échoué.'
+            echo '❌ Pipeline échoué.'
         }
         always {
-            echo 'Pipeline finished.'
+            echo 'Pipeline terminé.'
         }
     }
 }
